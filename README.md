@@ -41,19 +41,13 @@ Run ```MATCH (users:user) RETURN users``` in the command line at the top.
 
 ## Deploy
 
+Does not work! Still WIP!
+
 You will need a [Neo4j license](https://neo4j.com/licensing/) to deploy.
 
 To deploy development run `sls deploy`
 
 To deploy production run `sls deploy -s production`
-
-You'll need to make sure you use a valid AMI ID for the region you want to deploy to. This can be done using AWS CLI:
-
-```bash
-aws ec2 describe-images --owners amazon --filters 'Name=name,Values=amzn2-ami-hvm-2.0.????????-x86_64-gp2' 'Name=state,Values=available' --output json --region us-east-1 | jq -r '.Images | sort_by(.CreationDate) | last(.[]).ImageId'
-
-aws ec2 describe-images --owners amazon --filters 'Name=name,Values=amzn2-ami-hvm-2.0.????????-x86_64-gp2' 'Name=state,Values=available' --output json --region us-east-1 | jq -r '.Images | sort_by(.CreationDate) | last(.[]).ImageId'
-```
 
 ## Tests
 
