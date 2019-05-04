@@ -1,0 +1,31 @@
+{
+    "name": "graph-db-api",
+    "version": "1.0.0",
+    "description": "API for neo4j",
+    "scripts": {
+        "test": "jest",
+        "unit": "jest src",
+        "integration": "jest test/integration",
+        "deploy": "cross-env ./deploy.sh",
+        "deploy:serverless": "serverless deploy",
+        "destroy": "cross-env ./destroy.sh",
+        "destroy:serverless": "serverless remove",
+        "offline": "./start-neo4j.sh & serverless offline start & wait"
+    },
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "cross-env": "^5.2.0",
+        "serverless": "^1.41.0",
+        "serverless-dotenv-plugin": "^2.0.1",
+        "serverless-offline": "^4.9.4",
+        "serverless-webpack": "^5.2.0",
+        "supertest": "^4.0.2",
+        "terraform-npm": "^0.2.6",
+        "tree-kill": "^1.2.1",
+        "webpack": "^4.30.0"
+    },
+    "dependencies": {
+        "neo4j-driver": "^1.7.3"
+    }
+}

@@ -1,0 +1,112 @@
+# Welcome to Serverless!
+#
+# This file is the main config file for your service.
+# It's very minimal at this point and uses default values.
+# You can always add more config options for more control.
+# We've included some commented out config examples here.
+# Just uncomment any of them to get that config option.
+#
+# For full config options, check the docs:
+#    docs.serverless.com
+#
+# Happy Coding!
+
+service: graph-db
+
+# You can pin your service to only deploy with a specific Serverless version
+# Check out our docs for more details
+# frameworkVersion: "=X.X.X"
+
+provider:
+  name: aws
+  runtime: nodejs8.10
+
+# you can overwrite defaults here
+#  stage: dev
+#  region: us-east-1
+
+plugins:
+  - serverless-dotenv-plugin
+  - serverless-webpack
+  - serverless-offline
+
+#Package individually so that each function is smaller (i.e. tiny bit quicker startup!!!)
+package:
+  individually: true
+
+# you can add packaging information here
+#package:
+#  include:
+#    - include-me.js
+#    - include-me-dir/**
+#  exclude:
+#    - exclude-me.js
+#    - exclude-me-dir/**
+
+functions:
+  put:
+    handler: src/handlers/put.handler
+    events:
+      - http: 
+          method: put 
+          path: /{type}/{id}
+          cors:
+            #origin: ${env:USER_STORE_API_ACCESS_CONTROL_ALLOW_ORIGIN}
+            headers:
+              - Authorization
+              - Content-Type
+            allowCredentials: false
+
+  get:
+    handler: src/handlers/get.handler
+    events:
+      - http: 
+          method: get 
+          path: /{type}/{id}
+          cors:
+            #origin: ${env:USER_STORE_API_ACCESS_CONTROL_ALLOW_ORIGIN}
+            headers:
+              - Authorization
+              - Content-Type
+            allowCredentials: false
+  put-relationship:
+    handler: src/handlers/put-relationship.handler
+    events:
+      - http: 
+          method: put 
+          path: /{fromType}/{fromId}/{relationshipType}
+          cors:
+            #origin: ${env:USER_STORE_API_ACCESS_CONTROL_ALLOW_ORIGIN}
+            headers:
+              - Authorization
+              - Content-Type
+            allowCredentials: false
+  get-relationships:
+    handler: src/handlers/get-relationships.handler
+    events:
+      - http: 
+          method: get 
+          path: /{fromType}/{fromId}/{relationshipType}
+          cors:
+            #origin: ${env:USER_STORE_API_ACCESS_CONTROL_ALLOW_ORIGIN}
+            headers:
+              - Authorization
+              - Content-Type
+            allowCredentials: false
+  get-relationship:
+    handler: src/handlers/get-relationship.handler
+    events:
+      - http: 
+          method: get 
+          path: /{fromType}/{fromId}/{relationshipType}/{toType}/{toId}
+          cors:
+            #origin: ${env:USER_STORE_API_ACCESS_CONTROL_ALLOW_ORIGIN}
+            headers:
+              - Authorization
+              - Content-Type
+            allowCredentials: false
+custom:
+  webpack:
+    includeModules:
+      forceExclude:
+        - aws-sdk
