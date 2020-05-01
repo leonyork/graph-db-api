@@ -26,6 +26,6 @@
         "webpack": "^4.30.0"
     },
     "dependencies": {
-        "neo4j-driver": "^1.7.3"
+        "neo4j-driver": "^1.7.6"
     }
 }
